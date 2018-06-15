@@ -1,12 +1,56 @@
 from __future__ import print_function
 import datetime
 
-def printWithTime(start: datetime, msg: str) -> datetime:
-    ## timestampStr = '{:%H:%M:%S}'.format(datetime.datetime.now())
+def printWithTime(timestamp_last_print: datetime, msg: str) -> datetime:
+    """
+    (Copied the documentation comments from numpy/lib/shape_base.py to follow theie documentation format.
+    https://numpydoc.readthedocs.io/en/latest/
+    https://numpydoc.readthedocs.io/en/latest/format.html#method-docstrings)
+
+    Print a message with timestamp, lapse since last printing.
+    Returns lapse from the timestamp represented by timestamp_last_print and now.
+
+    Parameters
+    ----------
+    timestamp_last_print : datetime
+        The time stamp of the last printing, it will be used calculate the lapse since last printing.
+    msg: str
+        The message to be printed.
+
+    Returns
+    -------
+    now : datetime
+        The time stamp of the this printing. The caller should keep it somewhere and pass it back to this method.
+
+    Raises
+    ------
+    None
+        If XXX.
+
+    See Also
+    --------
+    None : XXX.
+
+    Notes
+    -----
+    XXX
+
+    References
+    ----------
+    .. [1] M. Sullivan and M. Sullivan, III, "Algebra and Trignometry,
+
+    Examples
+    --------
+    Sample output:
+         Lapse HH:MM:SS.MS
+               11:05:17.113 importing math
+         0.000 11:05:17.113 importing IPython
+         3.047 11:05:20.160 importing matplotlib
+    """
     now: datetime = datetime.datetime.now();
     lapse = '      '
-    if start:
-        delta = now - start
+    if timestamp_last_print:
+        delta = now - timestamp_last_print
         lapse = '{:>2}.{:0>3}'.format(delta.days * 86400 + delta.seconds, delta.microseconds // 1000)
 
     timestampStr = now.strftime('%H:%M:%S.%f')[:-3]
@@ -14,6 +58,7 @@ def printWithTime(start: datetime, msg: str) -> datetime:
     return now
 
 
+print(' Lapse HH:MM:SS.MS')  ## Print header
 start = printWithTime(None, 'importing math')
 import math
 start = printWithTime(start, 'importing IPython')
